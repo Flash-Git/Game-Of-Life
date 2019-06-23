@@ -10,7 +10,7 @@ class EntityManager {
     for(int i = 0; i < number; i++){
       Entity e = generateEntity(0);
       if(e == null) {
-        println("broke at " + i);
+        println("Entity broke at " + i);
         entityCount = i+1;
         return;
       }
