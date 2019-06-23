@@ -1,6 +1,6 @@
 class Food {
-  PVector location;
-  color colour;
+  public PVector location;
+  public color colour;
   
   Food(PVector location, color colour) {
     this.location = location;

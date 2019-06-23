@@ -1,24 +1,22 @@
 class FoodManager {
-  ArrayList<Food> foods = new ArrayList<Food>();
-  int foodCount;
+  public ArrayList<Food> foods = new ArrayList<Food>();
   
   FoodManager(int foodCount) {
     generateFoods(foodCount);
   }
   
-  void generateFoods(int number) {
+  private void generateFoods(int number) {
     for(int i = 0; i < number; i++){
       Food e = generateFood(0);
       if(e == null){
         println("Food broke at " + i);
-        foodCount = i+1;
         return;
       }
       foods.add(e);
     }
   }
   
-  Food generateFood(int escapeCount) {
+  private Food generateFood(int escapeCount) {
     if(escapeCount > 1) return null;
     
     PVector loc = new PVector(int(random(0, gridNum)), int(random(0, gridNum)));
@@ -28,7 +26,7 @@ class FoodManager {
     return generateFood(++escapeCount);
   }
   
-  boolean checkSlot(PVector slot) {
+  private boolean checkSlot(PVector slot) {
     for(Food e: foods){
       if(e.location.x == slot.x && e.location.y == slot.y) return false;
     }

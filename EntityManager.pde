@@ -1,24 +1,22 @@
 class EntityManager {
-  ArrayList<Entity> entities = new ArrayList<Entity>();
-  int entityCount;
+  public ArrayList<Entity> entities = new ArrayList<Entity>();
   
   EntityManager(int entityCount) {
     generateEntities(entityCount);
   }
   
-  void generateEntities(int number) {
+  private void generateEntities(int number) {
     for(int i = 0; i < number; i++){
       Entity e = generateEntity(0);
       if(e == null) {
         println("Entity broke at " + i);
-        entityCount = i+1;
         return;
       }
       entities.add(e);
     }
   }
   
-  Entity generateEntity(int escapeCount) {
+  private Entity generateEntity(int escapeCount) {
     if(escapeCount > 10) return null;
     
     PVector loc = new PVector(int(random(0, gridNum)), int(random(0, gridNum)));
@@ -28,7 +26,7 @@ class EntityManager {
     return generateEntity(++escapeCount);
   }
   
-  boolean checkSlot(PVector slot) {
+  private boolean checkSlot(PVector slot) {
     for(Entity e: entities){
       if(e.location.x == slot.x && e.location.y == slot.y) return false;
     }
