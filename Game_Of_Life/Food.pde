@@ -1,6 +1,7 @@
 class Food extends Entity {
   Food(PVector location, color colour, int tileSize) {
     super(location, colour, tileSize);
+    type = Entity.FOOD;
   }
   
   public void tick() {}

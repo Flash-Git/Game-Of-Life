@@ -1,32 +1,67 @@
 class EntityManager {
-  public ArrayList<Entity> entities = new ArrayList<Entity>();
-  public ArrayList<Food> foods = new ArrayList<Food>();
-  public ArrayList<Mover> movers = new ArrayList<Mover>();
+  public ArrayList<Entity> entities;
+  public ArrayList<Food> foods;
+  public ArrayList<Mover> movers;
   private int tileSize;
 
-  EntityManager(int moverCount, int foodCount, int tileSize) {
+  EntityManager(int tileSize) {
     this.tileSize = tileSize;
+    entities = new ArrayList<Entity>();
+    foods = new ArrayList<Food>();
+    movers = new ArrayList<Mover>();
+  }
+    
+  public void generate(int moverCount, int foodCount) {
     generateMovers(moverCount);
     generateFoods(foodCount);
   }
-    
+  
   public void tick() {
-    for(Entity e : entities){
-      e.tick();
+    for(Mover mover : movers){
+      PVector newLoc = new PVector(int(random(4)-2), int(random(4)-2));
+      if(mover.location.x+newLoc.x > gridNum) newLoc.x*=(-1);
+      if(mover.location.x+newLoc.x < 0) newLoc.x*=(-1);
+      if(mover.location.y+newLoc.y > gridNum) newLoc.y*=(-1);
+      if(mover.location.y+newLoc.y < 0) newLoc.y*=(-1);
+      
+      Entity e = checkTile(new PVector(newLoc.x+mover.location.x, newLoc.y+mover.location.y));
+            
+      if(e == null) {
+        mover.move(newLoc);
+        continue;
+      }
+      
+      if(e == mover) continue;
+      
+      if(e.type == Entity.FOOD){
+        mover.eat();
+        e.die();
+        mover.move(newLoc);
+        continue;
+      }
+      
+      if(e.type == Entity.MOVER){
+        mover.eat();
+        e.die();
+        mover.move(newLoc);
+        continue;
+      }  
+    }
+    
+    for(int i = entities.size()-1; i >= 0; i--){
+      Entity e = entities.get(i);
+      if(e.dead){
+        if(e.type == Entity.MOVER) movers.remove(e);
+        else if(e.type == Entity.FOOD) foods.remove(e);
+        entities.remove(i);
+      }
     }
   }
-   
+  
   public void render() {
     for(Entity e : entities){
       e.render();
     }
-  }
- 
-  Entity checkTile(PVector tile) {
-    for(Entity e : entities){
-      if(e.location.x == tile.x && e.location.y == tile.y) return e;
-    }
-    return null;
   }
 
   private void generateMovers(int moverCount) {

@@ -1,5 +1,5 @@
 EntityManager entityManager;
-int gridNum;
+public int gridNum;
 int offset;
 int screenSize;
 boolean showGrid;
@@ -13,10 +13,13 @@ void setup() {
   gridNum = 20;
   offset = 70;
   showGrid = false;
-  tileSize = (screenSize-offset*2)/gridNum;
+  
   int moverCount = 20;
   int foodCount = 5;
-  entityManager = new EntityManager(moverCount, foodCount, tileSize);
+  tileSize = (screenSize-offset*2)/gridNum;
+  
+  entityManager = new EntityManager(tileSize);
+  entityManager.generate(moverCount, foodCount);
 }
 
 int ticks = 0;
@@ -26,15 +29,16 @@ void draw() {
   entityManager.render();
   ticks++;
   if(ticks%25 == 0){
-    tickEntities();
+    entityManager.tick();
   }
 }
-
-void tickEntities() {
-  for(Mover mover : entityManager.movers){
-    mover.move(new PVector(int(random(4)-2), int(random(4)-2)));
+ 
+  Entity checkTile(PVector tile) {
+    for(Entity e : entityManager.entities){
+      if(e.location.x == tile.x && e.location.y == tile.y) return e;
+    }
+    return null;
   }
-}
 
 void grid(int offset, int tileSize) {
   if(showGrid){
