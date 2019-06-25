@@ -1,32 +1,66 @@
 class EntityManager {
   public ArrayList<Entity> entities = new ArrayList<Entity>();
-  
-  EntityManager(int entityCount) {
-    generateEntities(entityCount);
+  public ArrayList<Food> foods = new ArrayList<Food>();
+  public ArrayList<Mover> movers = new ArrayList<Mover>();
+  private int tileSize;
+
+  EntityManager(int moverCount, int foodCount, int tileSize) {
+    this.tileSize = tileSize;
+    generateMovers(moverCount);
+    generateFoods(foodCount);
   }
   
-  private void generateEntities(int number) {
-    for(int i = 0; i < number; i++){
-      Entity e = generateEntity(0);
-      if(e == null) {
-        println("Entity broke at " + i);
-        return;
-      }
-      entities.add(e);
+  public void render() {
+    for(Entity e : entities){
+      e.render();
     }
   }
   
-  private Entity generateEntity(int escapeCount) {
+  private void generateMovers(int moverCount) {
+    for(int i = 0; i < moverCount; i++){
+      Mover mover = generateMover(0);
+      if(mover == null) {
+        println("Movers broke at " + i);
+        return;
+      }
+      movers.add(mover);
+      entities.add(mover);
+    }
+  }
+  
+  private Mover generateMover(int escapeCount) {
     if(escapeCount > 10) return null;
     
     PVector loc = new PVector(int(random(0, gridNum)), int(random(0, gridNum)));
     color colour = color(int(random(55, 250)), int(random(55, 250)), int(random(55, 250)));
     
-    if(checkSlot(loc)) return new Entity(loc, colour);
-    return generateEntity(++escapeCount);
+    if(checkSlot(loc)) return new Mover(loc, colour, tileSize);
+    return generateMover(++escapeCount);
   }
   
-  private boolean checkSlot(PVector slot) {
+  private void generateFoods(int foodCount) {
+    for(int i = 0; i < foodCount; i++){
+      Food food = generateFood(0);
+      if(food == null) {
+        println("Foods broke at " + i);
+        return;
+      }
+      foods.add(food);
+      entities.add(food);
+    }
+  }
+  
+  private Food generateFood(int escapeCount) {
+    if(escapeCount > 1) return null;
+    
+    PVector loc = new PVector(int(random(0, gridNum)), int(random(0, gridNum)));
+    color colour = color(int(random(200, 255)), int(random(200, 250)), int(random(200, 255)));
+    
+    if(checkSlot(loc)) return new Food(loc, colour, tileSize);
+    return generateFood(++escapeCount);
+  }
+  
+  public boolean checkSlot(PVector slot) {
     for(Entity e: entities){
       if(e.location.x == slot.x && e.location.y == slot.y) return false;
     }

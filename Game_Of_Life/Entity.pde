@@ -1,18 +1,16 @@
 class Entity {
   public PVector location;
   public color colour;
+  public int size;
   
-  Entity(PVector location, color colour) {
+  Entity(PVector location, color colour, int size) {
     this.location = location;
     this.colour = colour;
+    this.size = size;
   }
-  
-  public void move(PVector direction) {
-    if(location.x+direction.x > gridNum) direction.x*=(-1);
-    if(location.x+direction.x < 0) direction.x*=(-1);
-    if(location.y+direction.y > gridNum) direction.y*=(-1);
-    if(location.y+direction.y < 0) direction.y*=(-1);
-    
-    location.add(direction);
+
+  void render() {
+    stroke(0);
+    fill(colour);
   }
 }
