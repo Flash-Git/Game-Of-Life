@@ -28,7 +28,7 @@ void draw() {
   grid(offset, tileSize);
   entityManager.render();
   ticks++;
-  if(ticks%25 == 0){
+  if(ticks%20 == 0){
     entityManager.tick();
   }
 }

@@ -54,6 +54,8 @@ class EntityManager {
         if(e.type == Entity.MOVER) movers.remove(e);
         else if(e.type == Entity.FOOD) foods.remove(e);
         entities.remove(i);
+      }else{
+        e.tick();
       }
     }
   }
