@@ -3,6 +3,15 @@ class Mover extends Entity {
     super(location, colour, tileSize);
   }
     
+  public void tick() {
+  
+  }
+  
+  public void render() {
+    super.render();
+    rect(location.x*size + offset, location.y*size + offset, size, size);
+  }
+  
   public void move(PVector direction) {
     if(location.x+direction.x > gridNum) direction.x*=(-1);
     if(location.x+direction.x < 0) direction.x*=(-1);
@@ -10,11 +19,5 @@ class Mover extends Entity {
     if(location.y+direction.y < 0) direction.y*=(-1);
     
     location.add(direction);
-  }
-  
-  public void render() {
-    super.render();
-    rect(location.x*size + offset, location.y*size + offset, size, size);
-
   }
 }

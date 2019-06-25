@@ -1,4 +1,4 @@
-class Entity {
+abstract class Entity {
   public PVector location;
   public color colour;
   public int size;
@@ -8,8 +8,10 @@ class Entity {
     this.colour = colour;
     this.size = size;
   }
+  
+  abstract void tick();
 
-  void render() {
+  public void render() {
     stroke(0);
     fill(colour);
   }

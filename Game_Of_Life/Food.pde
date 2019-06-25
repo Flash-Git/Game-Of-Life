@@ -3,6 +3,8 @@ class Food extends Entity {
     super(location, colour, tileSize);
   }
   
+  public void tick() {}
+  
   public void render() {
     super.render();
     ellipse(location.x*size + offset+1, location.y*size + offset+1, size-1, size-1);
