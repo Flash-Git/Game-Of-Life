@@ -1,5 +1,5 @@
 class Food extends Entity {
-  Food(PVector location, color colour, int tileSize) {
+  Food(PVector location, int[] colour, int tileSize) {
     super(location, colour, tileSize);
     type = Entity.FOOD;
     health = 1;
@@ -9,6 +9,6 @@ class Food extends Entity {
   
   public void render() {
     super.render();
-    ellipse(location.x*size + offset+1, location.y*size + offset+1, size-1, size-1);
+    ellipse(location.x*size + offset+2, location.y*size + offset+2, size-2, size-2);
   }
 }

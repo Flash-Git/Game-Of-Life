@@ -1,7 +1,7 @@
 class Mover extends Entity {
   public int damage;
   
-  Mover(PVector location, color colour, int tileSize) {
+  Mover(PVector location, int[] colour, int tileSize) {
     super(location, colour, tileSize);
     type = Entity.MOVER;
     health = 100;
@@ -9,8 +9,12 @@ class Mover extends Entity {
   }
     
   public void tick() {
-    health--;
+    health-=3;
+    colour[0]-=2;
+    colour[1]-=2;
+    colour[2]-=2;
     if(health < 1) die();
+    println(colour);
   }
   
   public void render() {
@@ -23,6 +27,10 @@ class Mover extends Entity {
   }
   
   public void eat() {
-    health += 20;
+    health += 50;
+    
+    colour[0]+=50;
+    colour[1]+=50;
+    colour[2]+=50;
   }
 }

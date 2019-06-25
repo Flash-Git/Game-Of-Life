@@ -3,7 +3,7 @@ abstract class Entity {
   public static final int MOVER = 1;
   
   public PVector location;
-  public color colour;
+  public int colour[] = new int[3];
   public int size;
   
   public int type;
@@ -12,7 +12,7 @@ abstract class Entity {
   public boolean dead;
   
 
-  Entity(PVector location, color colour, int size) {
+  Entity(PVector location, int[] colour, int size) {
     this.location = location;
     this.colour = colour;
     this.size = size;
@@ -23,7 +23,7 @@ abstract class Entity {
 
   public void render() {
     stroke(0);
-    fill(colour);
+    fill(colour[0], colour[1], colour[2]);
   }
   
   public void die() {
