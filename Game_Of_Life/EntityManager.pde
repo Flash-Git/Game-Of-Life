@@ -94,8 +94,7 @@ class EntityManager {
     if(escapeCount > 10) return null;
     
     PVector loc = new PVector(int(random(0, gridNum)), int(random(0, gridNum)));
-    color colour = color(int(random(55, 250)), int(random(55, 250)), int(random(55, 250)));
-    
+    int[] colour = { int(random(110, 250)), int(random(110, 250)), int(random(110, 250)) };
     if(checkTile(loc) == null) return new Mover(loc, colour, tileSize);
     return generateMover(++escapeCount);
   }
@@ -104,7 +103,7 @@ class EntityManager {
     if(escapeCount > 1) return null;
     
     PVector loc = new PVector(int(random(0, gridNum)), int(random(0, gridNum)));
-    color colour = color(int(random(200, 255)), int(random(200, 250)), int(random(200, 255)));
+    int[] colour = { int(random(200, 255)), int(random(200, 250)), int(random(200, 255)) };
     
     if(checkTile(loc) == null) return new Food(loc, colour, tileSize);
     return generateFood(++escapeCount);
